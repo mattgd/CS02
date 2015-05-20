@@ -1,3 +1,25 @@
-textarea {
-    width: 90%;
+body {
+    margin: 0 auto;
+    background: #999;
+}
+#gameTitle, #gameWindow {
+    margin: 0 auto;
+}
+#gameTitle {
+    margin-top: 20px;
+    width: 800px;
+    height: 50px;
+    font-size: 2.5em;
+    font-family: Verdana;
+    text-align: center;
+}
+#gameWindow, #gameCanvas {
+    width: 640px;
+    height: 480px;
+}
+#gameWindow {
+    background: #fff;
+}
+#gameCanvas {
+    background: #000;
 }
