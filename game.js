@@ -89,6 +89,7 @@ function draw() {
             }
         }
     });
+    input.focus();
 
     console.log("GameState " + gameState + " drawn successfully.");
 }
