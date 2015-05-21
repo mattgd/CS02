@@ -106,3 +106,12 @@ function clearCanvas(context, canvas) {
     canvas.width = 1;
     canvas.width = w;
 }
+
+/*
+System for text
+
+Save last line height
+Add [number] pixels
+Post new text there
+When text reaches the bottom, clear top one, move each up [number] pixels
+*/
