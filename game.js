@@ -4,7 +4,7 @@ var gCanvas, g2d;
 var gameState = 0;
 var width = 640;
 var height = 480;
-var title = "CS02";
+var title = "Seven Day Tour";
 var characterName = '';
 
 function init() {
@@ -46,6 +46,10 @@ function draw() {
         g2d.font = "24px Courier New";
         g2d.fillStyle = "#CCCCCC";
         g2d.fillText("Are you sure you want the name '" + characterName + "'?", (width / 2) - (g2d.measureText("Are you sure you want the name " + characterName + "?").width / 2), 230);
+    } else if (gameState == 4) {
+        g2d.font = "18px Courier New";
+        g2d.fillStyle = "#CCCCCC";
+        g2d.fillText("You see a test?", 8, height - 50);
     }
 
     var input = new CanvasInput({
@@ -82,7 +86,7 @@ function draw() {
                 }
             } else if (gameState == 3) {
                 if (choice == "yes" || choice == "1") {
-                    enterState(1);
+                    enterState(4);
                 } else if (choice == "no" || choice == "0") {
                     enterState(0);
                 }

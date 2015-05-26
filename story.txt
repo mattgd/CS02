@@ -1,0 +1,28 @@
+Seven Day Tour
+
+You are a normal human being with a daunting task: you must travel to every
+continent in seven days. You have to make your way from Seattle, Washington to
+Melbourne, Australia, stepping foot on every continent along the way.
+
+The seven continents are: Africa, Antarctica, Asia, Australia, Europe,
+North America, and South America.
+
+You are given 7,000 USD, which you may need to exchange for local currency at
+certain stops. You may travel the world in the order of your choosing. Each
+continent, excluding the starting continent, North America, and the ending continent,
+Australia, have multiple options of cities you can stop in. Some stops may be
+quicker than others. Without a strategy, the time may run out, and you may not
+be able to complete the task.
+
+There are three possible modes of transportation: by plane, by boat, and by car.
+Each option has its pros and cons. Planes are the fastest option if everything
+goes to plan, but they are expensive, and can be delayed, or have layovers.
+At first, a boat may be the slowest options, but they are cheap, and the only
+delay may be having to reroute because of a storm. Cars are only available for
+some trips. They are also cheap to rent, but they can break down easily. All
+three of the options, planes, boats, and cars, can be stopped by security or a
+military at any point.
+
+Plane - layover, stopped by security, delays, storms, expensive
+Boat - stopped in ports, storms, slow, cheap
+Car - stopped by military, at borders, break down, cheap unless it breaks down
