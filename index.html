@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>CS02</title>
+        <title>Seven Day Tour</title>
         <link rel="stylesheet" type="text/css" href="main.css">
         <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
         <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
@@ -12,6 +12,14 @@
         <div id="gameTitle">Seven Day Tour - A text based game.</div>
         <div id="gameWindow">
             <canvas id="gameCanvas"></canvas>
+        </div>
+
+        <div>
+            <textarea id="output" rows="20" cols="50"></textarea>
+            <form>
+                <input type="text" id="input" />
+                <input type="button" onClick="go();" />
+            </form>
         </div>
     </body>
 </html>
