@@ -1,3 +1,23 @@
+html, body, div, span, h1, h2, h3, h4, h5, h6, p, b, u, i, ol, ul, li, form,
+label, legend, table, tbody, tfoot, thead, tr, th, td {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
 body {
     margin: 0 auto;
     background: #999;
@@ -23,7 +43,7 @@ h2 {
 #gameWindow {
     width: 640px;
     height: 480px;
-    background: #fff;
+    background: #000;
 }
 #input, #submit, #output {
     border: 0;
@@ -34,7 +54,7 @@ h2 {
     resize: none;
     color: #FFF;
     width: 620px;
-    height: 431px;
+    height: 432px;
     overflow: hidden;
     padding: 10px;
 }
@@ -42,13 +62,15 @@ h2 {
     padding: 5px;
 }
 #input {
-    width: 566px;
+    width: 565px;
+    float: left;
 }
 #submit {
-    width: 60px;
+    width: 65px;
     background: #222;
     color: #FFF;
     transition: 0.3s;
+    float: right;
 }
 #submit:hover {
     background: #444;

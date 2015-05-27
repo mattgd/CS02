@@ -1,6 +1,13 @@
 // Declare the variables
 var title = "Seven Day Tour";
-var money, textarea, textIn, textOut;
+var money, textarea, textIn, textOut, transportationType;
+
+/* Transportation Types
+    0 - plane
+    1 - boat
+    2 - car
+    3 - not moving
+*/
 
 // Set the variables
 $(document).ready(function() {
@@ -31,7 +38,7 @@ function process(input) {
     s = punctuationless.replace(/\s{2,}/g, " ");
     s = s.toLowerCase();
 
-    switch(s) {
+    switch (s) {
         case "reset":
             reset();
             s = "Game reset.";
@@ -46,7 +53,7 @@ function process(input) {
             s = travelStatus();
             break;
         default:
-            s = "I'm afraid that's not allowed.";
+            s = "I'm afraid '" + s + "' is not allowed.";
     }
 
     return s;
@@ -61,5 +68,19 @@ function reset() {
 }
 
 function travelStatus() {
+
+    switch (transportationType) {
+        case 0:
+            // Plane
+            break;
+        case 1:
+            // Boat
+            break;
+        case 2:
+            // Car
+            break;
+        default:
+            // Not moving
+    }
 
 }

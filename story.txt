@@ -24,5 +24,5 @@ three of the options, planes, boats, and cars, can be stopped by security or a
 military at any point.
 
 Plane - layover, stopped by security, delays, storms, expensive
-Boat - stopped in ports, storms, slow, cheap
+Boat - stopped in ports, storms, slow, cheap, only available at some stops
 Car - stopped by military, at borders, break down, cheap unless it breaks down
