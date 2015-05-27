@@ -9,17 +9,13 @@
         <script type="text/javascript" src="game.js"></script>
     </head>
     <body>
-        <div id="gameTitle">Seven Day Tour - A text based game.</div>
-        <div id="gameWindow">
-            <canvas id="gameCanvas"></canvas>
-        </div>
+        <h1 id="gameTitle">Seven Day Tour</h1>
+        <h2>A text-based adventure game.</h2>
 
-        <div>
-            <textarea id="output" rows="20" cols="50"></textarea>
-            <form>
-                <input type="text" id="input" />
-                <input type="button" onClick="go();" />
-            </form>
+        <div id="gameWindow">
+            <textarea id="output" rows="20" cols="50" readonly></textarea>
+            <input type="text" id="input" />
+            <input type="button" id="submit" onClick="go();" value="Submit" />
         </div>
     </body>
 </html>
