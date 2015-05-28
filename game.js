@@ -1,7 +1,9 @@
 // Declare the variables
 var title = "Seven Day Tour";
-var currentTransport, location, money, nextLocation, textarea, textIn, textOut, transportationType;
+var location = "North America";
+var currentTransport, money, nextLocation, textarea, textIn, textOut, transportationType;
 var gameStarted = false;
+var timelapse = "Ten minutes later you arrive at the ";
 /* Transportation Types
     0 - plane
     1 - boat
@@ -20,7 +22,6 @@ $(document).ready(function() {
 
 $(document).keypress(function(e) {
     if (e.which == 13) {
-        console.log("HERE");
         $('#submit').click();
     }
 });
@@ -72,7 +73,7 @@ function process(input) {
             case "south america":
             case "antarctica":
                 setNextLocation(formatName(s));
-                s = location + ". Great! How would you like to get there? " + getValidTransportation();
+                s = formatName(s) + ". Great! How would you like to get there? " + getValidTransportation();
                 break;
             case "australia":
                 if (!lastStop) {
@@ -82,7 +83,7 @@ function process(input) {
             case "plane":
                 if (isValidTransportation(s)) {
                     currentTransport = s;
-                    s = "I'll drive you to the airport now.";
+                    s = timelapse + "airport.";
                 } else {
                     s = "There are no flights available to " + nextLocation + ".";
                 }
@@ -90,14 +91,14 @@ function process(input) {
             case "boat":
                 if (isValidTransportation(s)) {
                     currentTransport = s;
-                    s = "I'll drive you to the port now.";
+                    s = timelapse + "port.";
                 } else {
                     s = "There are no boat rides available to " + nextLocation + ".";
                 }
             case "car":
                 if (isValidTransportation(s)) {
                     currentTransport = s;
-                    s = "I'll drive you to the car rental.";
+                    s = timelapse + "car rental.";
                 } else {
                     s = "You cannot drive to " + nextLocation + ".";
                 }
@@ -197,7 +198,6 @@ function getValidTransportation() {
         default:
             s = normalOptions;
     }
-
     return s;
 }
 
@@ -242,7 +242,7 @@ function isValidTransportation(type) {
     } else {
         if (type == "plane" || type == "boat") return true;
     }
-    return true;
+    return false;
 }
 
 function getTransportation(type) {
@@ -290,12 +290,12 @@ function setNextLocation(location) {
 }
 
 function formatName(name) {
-    if (name.indexOf("") == -1) {
+    if (name.indexOf(" ") == -1) {
         name = name.substr(0, 1).toUpperCase() + name.substr(1);
     } else {
         name = name.substr(0, 1).toUpperCase()
             + name.substr(1, name.indexOf(" ") + 1)
             + name.substr(name.indexOf(" ") + 1, 1).toUpperCase() + s.substr(name.indexOf(" ") + 2);
     }
-    return s;
+    return name;
 }
