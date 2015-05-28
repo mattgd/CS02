@@ -1,6 +1,6 @@
 // Declare the variables
 var title = "Seven Day Tour";
-var location, money, nextLocation, textarea, textIn, textOut, transportationType;
+var currentTransport, location, money, nextLocation, textarea, textIn, textOut, transportationType;
 var gameStarted = false;
 /* Transportation Types
     0 - plane
@@ -71,14 +71,36 @@ function process(input) {
             case "europe":
             case "south america":
             case "antarctica":
-                var location = s.substr(0, 1).toUpperCase() + s.substr(1);
-                setNextLocation(location);
-                s = location + ". Great! How would you like to get there?";
+                setNextLocation(formatName(s));
+                s = location + ". Great! How would you like to get there? " + getValidTransportation();
+                break;
+            case "australia":
+                if (!lastStop) {
+                    s = "You have to visit the other continents first.";
+                }
                 break;
             case "plane":
+                if (isValidTransportation(s)) {
+                    currentTransport = s;
+                    s = "I'll drive you to the airport now.";
+                } else {
+                    s = "There are no flights available to " + nextLocation + ".";
+                }
+                break;
             case "boat":
+                if (isValidTransportation(s)) {
+                    currentTransport = s;
+                    s = "I'll drive you to the port now.";
+                } else {
+                    s = "There are no boat rides available to " + nextLocation + ".";
+                }
             case "car":
-                s = getTransportation(s);
+                if (isValidTransportation(s)) {
+                    currentTransport = s;
+                    s = "I'll drive you to the car rental.";
+                } else {
+                    s = "You cannot drive to " + nextLocation + ".";
+                }
                 break;
             default:
                 s = "I'm afraid '" + s + "' is not allowed.";
@@ -138,10 +160,97 @@ function convertTransportationType(type) {
     return type;
 }
 
+function getValidTransportation() {
+    var s = "You can travel by plane";
+    var allOptions = s + ", boat, and car.";
+    var normalOptions = s + " or boat.";
+
+    switch (nextLocation) {
+        case "Africa":
+            if (location == "Asia") {
+                s = allOptions;
+            } else {
+                s = normalOptions;
+            }
+            break;
+        case "Asia":
+            if (location == "Africa" || location == "Europe") {
+                s = allOptions;
+            } else {
+                s = normalOptions;
+            }
+            break;
+        case "Europe":
+            if (location == "Asia") {
+                s = allOptions;
+            } else {
+                s = normalOptions;
+            }
+            break;
+        case "South America":
+            if (location == "North America") {
+                s = allOptions;
+            } else {
+                s = normalOptions;
+            }
+            break;
+        default:
+            s = normalOptions;
+    }
+
+    return s;
+}
+
+function isValidTransportation(type) {
+    var valid;
+
+    switch (nextLocation) {
+        case "Africa":
+            if (location == "Asia") {
+                valid = 1;
+            } else {
+                valid = 0;
+            }
+            break;
+        case "Asia":
+            if (location == "Africa" || location == "Europe") {
+                valid = 1;
+            } else {
+                valid = 0;
+            }
+            break;
+        case "Europe":
+            if (location == "Asia") {
+                valid = 1;
+            } else {
+                valid = 0;
+            }
+            break;
+        case "South America":
+            if (location == "North America") {
+                valid = 1;
+            } else {
+                valid = 0;
+            }
+            break;
+        default:
+            valid = 0;
+    }
+
+    if (valid == 1) {
+        if (type == "plane" || type == "boat" || type == "car") return true;
+    } else {
+        if (type == "plane" || type == "boat") return true;
+    }
+    return true;
+}
+
 function getTransportation(type) {
     var s;
     type = convertTransportationType(type);
-    if (location == "North America") {
+
+    if (location == "Africa") {
+
         if (type == 2) {
             s = "Sorry, you cannot drive to "
         } else if (type == 0) {
@@ -151,8 +260,26 @@ function getTransportation(type) {
         } else {
             s = "I'm sorry, you can't travel that way to ";
         }
-    } else if {
-
+    } else if (location == "North America") {
+        if (type == 2) {
+            s = "Sorry, you cannot drive to "
+        } else if (type == 0) {
+            s = "I'll drive you to the airport to fly to ";
+        } else if (type == 1) {
+            s = "I'll drive you to the port to sail to ";
+        } else {
+            s = "I'm sorry, you can't travel that way to ";
+        }
+    } else if (location == "North America") {
+        if (type == 2) {
+            s = "Sorry, you cannot drive to "
+        } else if (type == 0) {
+            s = "I'll drive you to the airport to fly to ";
+        } else if (type == 1) {
+            s = "I'll drive you to the port to sail to ";
+        } else {
+            s = "I'm sorry, you can't travel that way to ";
+        }
     }
 
     return;
@@ -160,4 +287,15 @@ function getTransportation(type) {
 
 function setNextLocation(location) {
     nextLocation = location;
+}
+
+function formatName(name) {
+    if (name.indexOf("") == -1) {
+        name = name.substr(0, 1).toUpperCase() + name.substr(1);
+    } else {
+        name = name.substr(0, 1).toUpperCase()
+            + name.substr(1, name.indexOf(" ") + 1)
+            + name.substr(name.indexOf(" ") + 1, 1).toUpperCase() + s.substr(name.indexOf(" ") + 2);
+    }
+    return s;
 }

@@ -1,0 +1,26 @@
+The seven continents are: Africa, Antarctica, Asia, Australia, Europe, North America, and South America.
+
+TRAVEL OPTIONS:
+
+To Africa:
+From Asia > plane, boat, car
+From Antarctica, Europe, North America, and South America > plane, boat
+
+To Antarctica:
+From Africa, Asia, Europe, North America, and South America > plane, boat
+
+To Asia:
+From Africa, Europe > plane, boat, car
+From Antarctica, North America, South America > plane, boat
+
+To Australia:
+From Africa, Asia, Antarctica, Europe, North America, South America > plane, boat
+From North America > N/A
+
+To Europe:
+From Africa, Asia > plane, boat, car
+From Antarctica, North America, South America > plane, boat
+
+To South America:
+From Africa, Antarctica, Asia, Europe > plane, boat
+From North America > plane, boat, car
