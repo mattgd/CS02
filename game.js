@@ -1,10 +1,30 @@
 // Declare the variables
 var title = "Seven Day Tour";
-var playerLocation = "North America";
-var currentTransport, money, nextLocation, textarea, textIn, textOut, timer, transportationType;
-var time = 0;
 var gameStarted = false;
-var timelapse = "Ten minutes later you arrive at the ";
+var money = 7000;
+
+// I/O
+var balance, textarea, textIn, textOut;
+
+// Location
+var currentTransport, nextLocation, transportationType;
+var playerLocation = "North America";
+var atAirport = false;
+var atPort = false;
+var atCarRental = false;
+var airportName = "Seattle-Tacoma International Airport";
+var currencySymbol = "$";
+
+// Time
+var date = new Date();
+var day = 0;
+var monthNames = ["January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December"
+];
+var gameDate = monthNames[date.getMonth()] + " " + date.getDate() + ", " + date.getFullYear();
+var time = 0;
+var timer;
+
 /* Transportation Types
     0 - plane
     1 - boat
@@ -14,7 +34,7 @@ var timelapse = "Ten minutes later you arrive at the ";
 
 // Set the variables
 $(document).ready(function() {
-    money = 7000;
+    balance = $('#balance');
     textIn = $('#input');
     textOut = $('#output');
     textOut.val("Are you ready to begin? Type 'yes' or 'no' in the text box below.\n\n");
@@ -85,7 +105,8 @@ function process(input) {
             case "plane":
                 if (isValidTransportation(s)) {
                     currentTransport = s;
-                    s = timelapse + "airport.";
+                    atAirport = true;
+                    s = timelapse(10) + "airport. " + pay(15, "taxi driver");
                 } else {
                     s = "There are no flights available to " + nextLocation + ".";
                 }
@@ -93,16 +114,32 @@ function process(input) {
             case "boat":
                 if (isValidTransportation(s)) {
                     currentTransport = s;
-                    s = timelapse + "port.";
+                    atPort = true;
+                    s = timelapse(10) + "port. " + pay(30, "taxi driver");
                 } else {
                     s = "There are no boat rides available to " + nextLocation + ".";
                 }
             case "car":
                 if (isValidTransportation(s)) {
                     currentTransport = s;
-                    s = timelapse + "car rental.";
+                    atCarRental = true;
+                    s = timelapse(10) + "car rental. " + pay(20, "taxi driver");
                 } else {
                     s = "You cannot drive to " + nextLocation + ".";
+                }
+                break;
+            case "check in":
+                switch (currentTransport) {
+                    case "plane":
+                        s = "Welcome to " + airportName + "! Where are you headed today?";
+                        break;
+                    default:
+                        s = "There doesn't seem to be a check in desk.";
+                }
+                if (currentTransport == "plane" || currentTransport == "boat" || currentTransport == "car") {
+
+                } else {
+
                 }
                 break;
             default:
@@ -112,7 +149,7 @@ function process(input) {
         if (s == "yes" || s == "y") {
             gameStarted = true;
             startTimer();
-            s = "You call a taxi. The taxi driver asks you where you're headed.";
+            s = "Seattle, Washington: You call a taxi. The taxi driver asks you where you're headed.";
         } else if (s == "no" || s == "n") {
             s = "Alright, that's fine.";
         } else {
@@ -143,15 +180,17 @@ function startTimer() {
         hours = hours % 24;
 
         if (hours < 1) {
-            timerText = minutes + " minutes.";
+            timerText = minutes + " minutes";
         } else {
             if (days < 1) {
-                timerText = hours + "hours and " + minutes + " minutes.";
+                timerText = hours + " hours and " + minutes + " minutes";
             } else {
-                timerText = days + "days, " + hours + " hours, and " + minutes + " minutes.";
+                this.days = days;
+                timerText = days + " days, " + hours + " hours, and " + minutes + " minutes";
             }
         }
-        timer.text("Game time: " + timerText);
+
+        timer.text("Time: " + timerText);
     }, 1000);
 }
 
@@ -325,4 +364,24 @@ function formatName(name) {
             + name.substr(name.indexOf(" ") + 1, 1).toUpperCase() + s.substr(name.indexOf(" ") + 2);
     }
     return name;
+}
+
+function timelapse(minutes) {
+    time += minutes;
+    return "Ten minutes later you arrive at the ";
+}
+
+function pay(amount, recipient) {
+    money -= amount;
+    balance.text("Money: " + currencySymbol + money);
+    return "You pay the " + recipient + " " + currencySymbol + amount + ".";
+}
+
+function getDateString() {
+    hours = Math.floor(minutes / 60);
+    days = Math.floor(hours / 24);
+    if (timer / 1440) {
+
+    }
+    return gameDate;
 }

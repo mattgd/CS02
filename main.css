@@ -41,15 +41,14 @@ h2 {
     margin-bottom: 20px;
 }
 #gameStatus {
-	background: #FFF;
+	background: #000;
+	color: #FFF;
 	width: 640px;
+	border-bottom: 1px solid #FFF;
 }
 #gameStatus p {
 	text-align: left;
 	padding: 5px;
-	background: #000;
-	color: #FFF;
-	border-bottom: 1px solid #FFF;
 }
 #gameWindow {
     width: 640px;
