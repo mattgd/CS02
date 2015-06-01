@@ -35,6 +35,7 @@ var timer;
 // Set the variables
 $(document).ready(function() {
     balance = $('#balance');
+    balance.text("Money: " + currencySymbol + money);
     textIn = $('#input');
     textOut = $('#output');
     textOut.val("Are you ready to begin? Type 'yes' or 'no' in the text box below.\n\n");
