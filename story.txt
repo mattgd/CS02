@@ -29,3 +29,5 @@ Car - stopped by military, at borders, break down, cheap unless it breaks down
 
 Cannot step on land of same country twice
 Cannot switch methods in-between countries
+
+Be able to select starting city or country in North America

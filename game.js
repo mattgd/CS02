@@ -1,7 +1,8 @@
 // Declare the variables
 var title = "Seven Day Tour";
-var location = "North America";
-var currentTransport, money, nextLocation, textarea, textIn, textOut, transportationType;
+var playerLocation = "North America";
+var currentTransport, money, nextLocation, textarea, textIn, textOut, timer, transportationType;
+var time = 0;
 var gameStarted = false;
 var timelapse = "Ten minutes later you arrive at the ";
 /* Transportation Types
@@ -18,6 +19,7 @@ $(document).ready(function() {
     textOut = $('#output');
     textOut.val("Are you ready to begin? Type 'yes' or 'no' in the text box below.\n\n");
     textarea = document.getElementById("output");
+    timer = $('#timer');
 });
 
 $(document).keypress(function(e) {
@@ -109,6 +111,7 @@ function process(input) {
     } else {
         if (s == "yes" || s == "y") {
             gameStarted = true;
+            startTimer();
             s = "You call a taxi. The taxi driver asks you where you're headed.";
         } else if (s == "no" || s == "n") {
             s = "Alright, that's fine.";
@@ -126,6 +129,30 @@ function reset() {
     textOut.val("");
 
     textarea.scrollTop = 0; // Reset the textarea scroll
+}
+
+function startTimer() {
+    var days, hours, minutes, timerText;
+    setInterval(function() {
+        time++;
+
+        minutes = time;
+        hours = Math.floor(minutes / 60);
+        minutes = minutes % 60;
+        days = Math.floor(hours / 24);
+        hours = hours % 24;
+
+        if (hours < 1) {
+            timerText = minutes + " minutes.";
+        } else {
+            if (days < 1) {
+                timerText = hours + "hours and " + minutes + " minutes.";
+            } else {
+                timerText = days + "days, " + hours + " hours, and " + minutes + " minutes.";
+            }
+        }
+        timer.text("Game time: " + timerText);
+    }, 1000);
 }
 
 function travelStatus() {
@@ -168,28 +195,28 @@ function getValidTransportation() {
 
     switch (nextLocation) {
         case "Africa":
-            if (location == "Asia") {
+            if (playerLocation == "Asia") {
                 s = allOptions;
             } else {
                 s = normalOptions;
             }
             break;
         case "Asia":
-            if (location == "Africa" || location == "Europe") {
+            if (playerLocation == "Africa" || playerLocation == "Europe") {
                 s = allOptions;
             } else {
                 s = normalOptions;
             }
             break;
         case "Europe":
-            if (location == "Asia") {
+            if (playerLocation == "Asia") {
                 s = allOptions;
             } else {
                 s = normalOptions;
             }
             break;
         case "South America":
-            if (location == "North America") {
+            if (playerLocation == "North America") {
                 s = allOptions;
             } else {
                 s = normalOptions;
@@ -206,28 +233,28 @@ function isValidTransportation(type) {
 
     switch (nextLocation) {
         case "Africa":
-            if (location == "Asia") {
+            if (playerLocation == "Asia") {
                 valid = 1;
             } else {
                 valid = 0;
             }
             break;
         case "Asia":
-            if (location == "Africa" || location == "Europe") {
+            if (playerLocation == "Africa" || playerLocation == "Europe") {
                 valid = 1;
             } else {
                 valid = 0;
             }
             break;
         case "Europe":
-            if (location == "Asia") {
+            if (playerLocation == "Asia") {
                 valid = 1;
             } else {
                 valid = 0;
             }
             break;
         case "South America":
-            if (location == "North America") {
+            if (playerLocation == "North America") {
                 valid = 1;
             } else {
                 valid = 0;
@@ -249,7 +276,7 @@ function getTransportation(type) {
     var s;
     type = convertTransportationType(type);
 
-    if (location == "Africa") {
+    if (playerLocation == "Africa") {
 
         if (type == 2) {
             s = "Sorry, you cannot drive to "
@@ -260,7 +287,7 @@ function getTransportation(type) {
         } else {
             s = "I'm sorry, you can't travel that way to ";
         }
-    } else if (location == "North America") {
+    } else if (playerLocation == "North America") {
         if (type == 2) {
             s = "Sorry, you cannot drive to "
         } else if (type == 0) {
@@ -270,7 +297,7 @@ function getTransportation(type) {
         } else {
             s = "I'm sorry, you can't travel that way to ";
         }
-    } else if (location == "North America") {
+    } else if (playerLocation == "North America") {
         if (type == 2) {
             s = "Sorry, you cannot drive to "
         } else if (type == 0) {
@@ -282,11 +309,11 @@ function getTransportation(type) {
         }
     }
 
-    return;
+    return s;
 }
 
-function setNextLocation(location) {
-    nextLocation = location;
+function setNextLocation(playerLocation) {
+    nextLocation = playerLocation;
 }
 
 function formatName(name) {

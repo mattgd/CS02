@@ -22,7 +22,7 @@ body {
     margin: 0 auto;
     background: #999;
 }
-h1, h2, #gameWindow {
+h1, h2, #gameWindow, #gameStatus {
     margin: 0 auto;
 }
 h1, h2 {
@@ -39,6 +39,17 @@ h1 {
 }
 h2 {
     margin-bottom: 20px;
+}
+#gameStatus {
+	background: #FFF;
+	width: 640px;
+}
+#gameStatus p {
+	text-align: left;
+	padding: 5px;
+	background: #000;
+	color: #FFF;
+	border-bottom: 1px solid #FFF;
 }
 #gameWindow {
     width: 640px;
