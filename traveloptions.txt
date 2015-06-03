@@ -24,3 +24,15 @@ From Antarctica, North America, South America > plane, boat
 To South America:
 From Africa, Antarctica, Asia, Europe > plane, boat
 From North America > plane, boat, car
+
+
+Airport Options:
+North America: ATL (Atlanta), LAX (Los Angeles), ORD (Chicago)
+Asia: BJS (Beijing), HND (Tokyo), DXB (Dubai)
+Europe: LHR (London), CDG (Paris), FRA (Frankfurt)
+Africa: JNB (Johannesburg), CAI (Cairo), CPT (Cape Town)
+South America: GRU (São Paulo), BOG (Bogotá), GIG (Rio de Janeiro)
+Australia: SYD (Sydney), MEL (Melbourne), BNE (Brisbane)
+Antarctica: TNM (King George Island)
+
+Flight Costs

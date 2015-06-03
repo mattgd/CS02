@@ -17,7 +17,7 @@ var currencySymbol = "$";
 
 // Time
 var date = new Date();
-var day = 0;
+var day = 1;
 var monthNames = ["January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"
 ];
@@ -95,8 +95,11 @@ function process(input) {
             case "europe":
             case "south america":
             case "antarctica":
+                s = formatName(s);
                 setNextLocation(formatName(s));
-                s = formatName(s) + ". Great! How would you like to get there? " + getValidTransportation();
+                s = formatName(s) + ". Awesome! How would you like to get there? " + getValidTransportation();
+
+                if (nextLocation == formatName(s))
                 break;
             case "australia":
                 if (!lastStop) {
@@ -120,6 +123,7 @@ function process(input) {
                 } else {
                     s = "There are no boat rides available to " + nextLocation + ".";
                 }
+                break;
             case "car":
                 if (isValidTransportation(s)) {
                     currentTransport = s;
@@ -150,7 +154,7 @@ function process(input) {
         if (s == "yes" || s == "y") {
             gameStarted = true;
             startTimer();
-            s = "Seattle, Washington: You call a taxi. The taxi driver asks you where you're headed.";
+            s = "Day " + getDay() + " - Seattle, Washington:\nYou call a taxi. The taxi driver asks you where you're headed.";
         } else if (s == "no" || s == "n") {
             s = "Alright, that's fine.";
         } else {
@@ -369,7 +373,7 @@ function formatName(name) {
 
 function timelapse(minutes) {
     time += minutes;
-    return "Ten minutes later you arrive at the ";
+    return minutes + " minutes later, you arrive at the ";
 }
 
 function pay(amount, recipient) {
@@ -378,11 +382,12 @@ function pay(amount, recipient) {
     return "You pay the " + recipient + " " + currencySymbol + amount + ".";
 }
 
-function getDateString() {
-    hours = Math.floor(minutes / 60);
-    days = Math.floor(hours / 24);
-    if (timer / 1440) {
-
+function getDay() {
+    var hours = Math.floor(timer / 60);
+    var days = Math.floor(hours / 24);
+    hours = Math.floor(days % 24);
+    if (hours >= 1) {
+        day++;
     }
-    return gameDate;
+    return day;
 }
