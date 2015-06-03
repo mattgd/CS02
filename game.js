@@ -96,10 +96,15 @@ function process(input) {
             case "south america":
             case "antarctica":
                 s = formatName(s);
-                setNextLocation(formatName(s));
-                s = formatName(s) + ". Awesome! How would you like to get there? " + getValidTransportation();
+                if (nextLocation == s) {
+                    s += "The ticket agent hands you a ticket to " + s + "." + pay()
+                } else {
+                    setNextLocation(s);
+                    s += ". Awesome! How would you like to get there? " + getValidTransportation();
+                }
 
-                if (nextLocation == formatName(s))
+
+
                 break;
             case "australia":
                 if (!lastStop) {

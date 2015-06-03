@@ -1,13 +1,12 @@
 Seven Day Tour
 
-You are a normal human being with a daunting task: you must travel to every
-continent in seven days. You have to make your way from Seattle, Washington to
+You are a normal human being with a daunting task: you must travel to six
+continents in seven days. You have to make your way from Seattle, Washington to
 Melbourne, Australia, stepping foot on every continent along the way.
 
-The seven continents are: Africa, Antarctica, Asia, Australia, Europe,
-North America, and South America.
+The six continents are: Africa, Asia, Australia, Europe, North America, and South America.
 
-You are given 7,000 USD, which you may need to exchange for local currency at
+You are given 10,000 USD, which you may need to exchange for local currency at
 certain stops. You may travel the world in the order of your choosing. Each
 continent, excluding the starting continent, North America, and the ending continent,
 Australia, have multiple options of cities you can stop in. Some stops may be

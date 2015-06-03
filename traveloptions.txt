@@ -1,38 +1,99 @@
-The seven continents are: Africa, Antarctica, Asia, Australia, Europe, North America, and South America.
+The six continents are: Africa, Asia, Australia, Europe, North America,
+and South America (this game excludes Antarctica).
 
 TRAVEL OPTIONS:
 
 To Africa:
 From Asia > plane, boat, car
-From Antarctica, Europe, North America, and South America > plane, boat
-
-To Antarctica:
-From Africa, Asia, Europe, North America, and South America > plane, boat
+From Europe, North America, and South America > plane, boat
 
 To Asia:
 From Africa, Europe > plane, boat, car
-From Antarctica, North America, South America > plane, boat
+From North America, South America > plane, boat
 
 To Australia:
-From Africa, Asia, Antarctica, Europe, North America, South America > plane, boat
+From Africa, Asia, Europe, North America, South America > plane, boat
 From North America > N/A
 
 To Europe:
 From Africa, Asia > plane, boat, car
-From Antarctica, North America, South America > plane, boat
+From North America, South America > plane, boat
 
 To South America:
-From Africa, Antarctica, Asia, Europe > plane, boat
+From Africa, Asia, Europe > plane, boat
 From North America > plane, boat, car
 
-
 Airport Options:
-North America: ATL (Atlanta), LAX (Los Angeles), ORD (Chicago)
-Asia: BJS (Beijing), HND (Tokyo), DXB (Dubai)
-Europe: LHR (London), CDG (Paris), FRA (Frankfurt)
 Africa: JNB (Johannesburg), CAI (Cairo), CPT (Cape Town)
-South America: GRU (São Paulo), BOG (Bogotá), GIG (Rio de Janeiro)
+Asia: PEK (Beijing), HND (Tokyo), DXB (Dubai)
 Australia: SYD (Sydney), MEL (Melbourne), BNE (Brisbane)
-Antarctica: TNM (King George Island)
+Europe: LHR (London), CDG (Paris), FRA (Frankfurt)
+North America: ATL (Atlanta), LAX (Los Angeles), ORD (Chicago)
+South America: GRU (São Paulo), BOG (Bogotá), GIG (Rio de Janeiro)
 
-Flight Costs
+Flight Costs (prices in USD):
+
+Country codes: AF (Africa), AS (Asia), AU (Australia), EU (Europe),
+               NA (North America), SA (South America)
+
++----------+----------+------+------+
+|   From   |    To    | Cost | Time |
++----------+----------+------+------+
+| NA - ATL | AF - JNB | 2182 |15h31m|
++----------+----------+------+------+
+| NA - LAX | AF - JNB | 1600 |25h45m|
++----------+----------+------+------+
+| NA - ORD | AF - JNB | 1176 |32h10m|
++----------+----------+------+------+
+| NA - ATL | AF - CAI | 1466 |16h05m|
++----------+----------+------+------+
+| NA - LAX | AF - CAI | 1504 |17h30m|
++----------+----------+------+------+
+| NA - ORD | AF - CAI | 1404 |14h04m|
++----------+----------+------+------+
+| NA - ATL | AF - CPT | 2220 |19h36m|
++----------+----------+------+------+
+| NA - LAX | AF - CPT | 1633 |29h30m|
++----------+----------+------+------+
+| NA - ORD | AF - CPT | 1372 |35h55m|
++----------+----------+------+------+
+
++----------+----------+------+------+
+| AF - JNB | AS - PEK | 0678 |21h10m|
++----------+----------+------+------+
+| AF - CAI | AS - PEK | 0628 |13h20m|
++----------+----------+------+------+
+| AF - CPT | AS - PEK | 0760 |22h05m|
++----------+----------+------+------+
+| AF - JNB | AS - HND | 1481 |19h40m|
++----------+----------+------+------+
+| AF - CAI | AS - HND | 1088 |26h05m|
++----------+----------+------+------+
+| AF - CPT | AS - HND | 1518 |23h25m|
++----------+----------+------+------+
+| AF - JNB | AS - DXB | 0428 |10h45m|
++----------+----------+------+------+
+| AF - CAI | AS - DXB | 0334 |09h15m|
++----------+----------+------+------+
+| AF - CPT | AS - DXB | 0899 |09h35m|
++----------+----------+------+------+
+
++----------+----------+------+------+
+| AS - PEK | AU - SYD | 1189 |20h10m|
++----------+----------+------+------+
+| AS - HND | AU - SYD | 0975 |21h20m|
++----------+----------+------+------+
+| AS - DXB | AU - SYD | 1829 |13h55m|
++----------+----------+------+------+
+| AS - PEK | AU - MEL | 1361 |15h50m|
++----------+----------+------+------+
+| AS - HND | AU - MEL | 1466 |19h15m|
++----------+----------+------+------+
+| AS - DXB | AU - MEL | 1633 |13h20m|
++----------+----------+------+------+
+| AS - PEK | AU - BNE | 1240 |21h10m|
++----------+----------+------+------+
+| AS - HND | AU - BNE | 0784 |24h15m|
++----------+----------+------+------+
+| AS - DXB | AU - BNE | 1916 |13h45m|
++----------+----------+------+------+
