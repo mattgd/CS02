@@ -12,8 +12,20 @@ var playerLocation = "North America";
 var atAirport = false;
 var atPort = false;
 var atCarRental = false;
-var airportName = "Seattle-Tacoma International Airport";
+var airportName = "Seattle-Tacoma International Airport"; //TODO Make a list of all of the airport names
 var currencySymbol = "$";
+
+//TODO Ask if male or female
+
+// Generate a random index for North America starting location
+var startingLocation = getRandom(0, 2);
+
+var afCities = [ "Johannesburg", "Cairo", "Cape Town" ];
+var asCities = [ "Beijing", "Tokyo", "Dubai" ];
+var auCities = [ "Sydney", "Melbourne", "Brisbane" ];
+var euCities = [ "London", "Paris", "Frankfurt" ];
+var naCities = [ "Atlanta", "Los Angeles", "Chicago" ];
+var saCities = [ "São Paulo", "Bogotá", "Rio de Janeiro" ]; //TODO Get rid of the accents if the user has to type these in
 
 // Time
 var date = new Date();
@@ -41,6 +53,7 @@ $(document).ready(function() {
     textOut.val("Are you ready to begin? Type 'yes' or 'no' in the text box below.\n\n");
     textarea = document.getElementById("output");
     timer = $('#timer');
+    startingLocation = naCities[startingLocation];
 });
 
 $(document).keypress(function(e) {
@@ -82,6 +95,7 @@ function process(input) {
                 break;
             case "help":
                 s = "Here to help!";
+                //TODO Help based on current location
                 break;
             case "money":
                 s = "You have $"  + money + ".";
@@ -97,14 +111,11 @@ function process(input) {
             case "antarctica":
                 s = formatName(s);
                 if (nextLocation == s) {
-                    s += "The ticket agent hands you a ticket to " + s + "." + pay()
+                    s = "The ticket agent hands you a ticket to " + s + ". " + pay();
                 } else {
                     setNextLocation(s);
                     s += ". Awesome! How would you like to get there? " + getValidTransportation();
                 }
-
-
-
                 break;
             case "australia":
                 if (!lastStop) {
@@ -141,7 +152,7 @@ function process(input) {
             case "check in":
                 switch (currentTransport) {
                     case "plane":
-                        s = "Welcome to " + airportName + "! Where are you headed today?";
+                        s = "Hello! Where will you be heading today?";
                         break;
                     default:
                         s = "There doesn't seem to be a check in desk.";
@@ -159,7 +170,7 @@ function process(input) {
         if (s == "yes" || s == "y") {
             gameStarted = true;
             startTimer();
-            s = "Day " + getDay() + " - Seattle, Washington:\nYou call a taxi. The taxi driver asks you where you're headed.";
+            s = "Day " + getDay() + " - " + startingLocation + ":\nYou call a taxi. The taxi driver asks you where you're headed.";
         } else if (s == "no" || s == "n") {
             s = "Alright, that's fine.";
         } else {
@@ -239,8 +250,8 @@ function convertTransportationType(type) {
 
 function getValidTransportation() {
     var s = "You can travel by plane";
-    var allOptions = s + ", boat, and car.";
-    var normalOptions = s + " or boat.";
+    var allOptions = s + ", boat, or car.";
+    var normalOptions = s + " or by boat.";
 
     switch (nextLocation) {
         case "Africa":
@@ -396,3 +407,35 @@ function getDay() {
     }
     return day;
 }
+
+function getRandom(min, max) {
+    return min + Math.floor(Math.random() * (max - min + 1));
+}
+
+// Plane travel information
+
+// Africa
+jnb = [ "PEK:0678:18h50m", "HND:1481:19h40m", "DXB:0428:10h45m",
+        "SYD:", "MEL:", "BNE:",
+        "LHR:", "CDG:", "FRA:",
+        "GRU:", "BOG:", "GIG:" ];
+cai = [ "PEK:0628:13h20m", "HND:1088:26h05m", "DXB:0334:09h15m",
+        "SYD:", "MEL:", "BNE:",
+        "LHR:", "CDG:", "FRA:",
+        "GRU:", "BOG:", "GIG:" ];
+cpt = [ "PEK:0760:22h05m", "HND:1518:23h25m", "DXB:0899:09h35m",
+        "SYD:", "MEL:", "BNE:",
+        "LHR:", "CDG:", "FRA:",
+        "GRU:", "BOG:", "GIG:" ];
+// Asia
+pek = [ "JNB:1200:18h50m", "CAI:1481:19h40m", "CPT:0428:10h45m",
+        "SYD:", "MEL:", "BNE:",
+        "LHR:", "CDG:", "FRA:",
+        "GRU:", "BOG:", "GIG:" ];
+
+/*Africa: JNB (Johannesburg, 0), CAI (Cairo, 1), CPT (Cape Town, 2)
+Asia: PEK (Beijing, 3), HND (Tokyo, 4), DXB (Dubai, 5)
+Australia: SYD (Sydney, 6), MEL (Melbourne, 7), BNE (Brisbane, 8)
+Europe: LHR (London, 9), CDG (Paris, 10), FRA (Frankfurt, 11)
+North America: ATL (Atlanta, 12), LAX (Los Angeles, 13), ORD (Chicago, 14)
+South America: GRU (São Paulo, 16), BOG (Bogotá, 17), GIG (Rio de Janeiro, 18)*/
