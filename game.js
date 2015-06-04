@@ -412,6 +412,48 @@ function getRandom(min, max) {
     return min + Math.floor(Math.random() * (max - min + 1));
 }
 
+function getPrice(from, to) {
+    var price = 0;
+    var identifiers = [ from + "-" + to, to + "-" + from ];
+    var lists = [ afFlights, asFlights, euFlights, naFlights, saFlights ];
+
+    for (var i = 0; i < lists.length; i++) {
+        price = searchForPrice(lists[i], identifiers);
+        if (price != 0) break; // Stop once it finds a valid price
+    }
+    return price;
+}
+
+function searchForPrice(list, identifiers) {
+    for (var i = 0; i < list.length; i++) {
+        if (list.substr(0, 6) == identifiers[0] || list.substr(0, 6) == identifiers[1]) {
+            return parseInt(list.substr(8, 4));
+        }
+    }
+    return 0;
+}
+
+function getTime(from, to) {
+    var time = 0;
+    var identifiers = [ from + "-" + to, to + "-" + from ];
+    var lists = [ afFlights, asFlights, euFlights, naFlights, saFlights ];
+
+    for (var i = 0; i < lists.length; i++) {
+        time = searchForTime(lists[i], identifiers);
+        if (time != 0) break; // Stop once it finds a valid price
+    }
+    return time;
+}
+
+function searchForTime(list, identifiers) {
+    for (var i = 0; i < list.length; i++) {
+        if (list.substr(0, 6) == identifiers[0] || list.substr(0, 6) == identifiers[1]) {
+            return list.substr(13, 5);
+        }
+    }
+    return 0;
+}
+
 // Air travel information
 // Variable name is departure/arrival airport
 
