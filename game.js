@@ -9,13 +9,11 @@ var balance, textarea, textIn, textOut;
 // Location
 var currentTransport, nextLocation, transportationType;
 var playerLocation = "North America";
+var airportCode = "ATL";
 var atAirport = false;
 var atPort = false;
 var atCarRental = false;
-var airportName = "Seattle-Tacoma International Airport"; //TODO Make a list of all of the airport names
 var currencySymbol = "$";
-
-//TODO Ask if male or female
 
 // Generate a random index for North America starting location
 var startingLocation = getRandom(0, 2);
@@ -53,7 +51,15 @@ $(document).ready(function() {
     textOut.val("Are you ready to begin? Type 'yes' or 'no' in the text box below.\n\n");
     textarea = document.getElementById("output");
     timer = $('#timer');
+
+    // Set starting airport/port
+    if (startingLocation == 1) {
+        airportCode = "LAX";
+    } else if (startingLocation == 2) {
+        airportCode = "ORD";
+    }
     startingLocation = naCities[startingLocation];
+
 });
 
 $(document).keypress(function(e) {
@@ -104,14 +110,16 @@ function process(input) {
                 s = travelStatus();
                 break;
             case "africa":
-            case "antarctica":
             case "asia":
             case "europe":
             case "south america":
-            case "antarctica":
                 s = formatName(s);
                 if (nextLocation == s) {
-                    s = "The ticket agent hands you a ticket to " + s + ". " + pay();
+                    if (atAirport) {
+                        s = "The following flights are available to " + s + ":\n" + getFlights(airportCode, nextLocation);
+                    } else {
+                        s = "The ticket agent hands you a ticket to " + s + ". " + pay();
+                    }
                 } else {
                     setNextLocation(s);
                     s += ". Awesome! How would you like to get there? " + getValidTransportation();
@@ -157,7 +165,7 @@ function process(input) {
                     default:
                         s = "There doesn't seem to be a check in desk.";
                 }
-                if (currentTransport == "plane":| currentTransport == "boat" || currentTransport == "car") {
+                if (currentTransport == "plane" || currentTransport == "boat" || currentTransport == "car") {
 
                 } else {
 
@@ -381,8 +389,8 @@ function formatName(name) {
         name = name.substr(0, 1).toUpperCase() + name.substr(1);
     } else {
         name = name.substr(0, 1).toUpperCase()
-            + name.substr(1, name.indexOf(" ") + 1)
-            + name.substr(name.indexOf(" ") + 1, 1).toUpperCase() + s.substr(name.indexOf(" ") + 2);
+            + name.substr(1, name.indexOf(" "))
+            + name.substr(name.indexOf(" ") + 1, 1).toUpperCase() + name.substr(name.indexOf(" ") + 2);
     }
     return name;
 }
@@ -412,22 +420,22 @@ function getRandom(min, max) {
     return min + Math.floor(Math.random() * (max - min + 1));
 }
 
-function getPrice(from, to) {
+function getCost(from, to) {
     var price = 0;
     var identifiers = [ from + "-" + to, to + "-" + from ];
     var lists = [ afFlights, asFlights, euFlights, naFlights, saFlights ];
 
     for (var i = 0; i < lists.length; i++) {
-        price = searchForPrice(lists[i], identifiers);
+        price = searchForCost(lists[i], identifiers);
         if (price != 0) break; // Stop once it finds a valid price
     }
     return price;
 }
 
-function searchForPrice(list, identifiers) {
+function searchForCost(list, identifiers) {
     for (var i = 0; i < list.length; i++) {
-        if (list.substr(0, 6) == identifiers[0] || list.substr(0, 6) == identifiers[1]) {
-            return parseInt(list.substr(8, 4));
+        if (list[i].substr(0, 6) == identifiers[0] || list[i].substr(0, 6) == identifiers[1]) {
+            return parseInt(list[i].substr(8, 4));
         }
     }
     return 0;
@@ -447,11 +455,38 @@ function getTime(from, to) {
 
 function searchForTime(list, identifiers) {
     for (var i = 0; i < list.length; i++) {
-        if (list.substr(0, 6) == identifiers[0] || list.substr(0, 6) == identifiers[1]) {
-            return list.substr(13, 5);
+        if (list[i].substr(0, 6) == identifiers[0] || list[i].substr(0, 6) == identifiers[1]) {
+            return list[i].substr(13, 5);
         }
     }
     return 0;
+}
+
+function getFlights(from, to) {
+    var flights = "";
+    var list = afAirports;
+    switch (to) {
+        case "Africa":
+            break;
+        case "Asia":
+            list = asAirports;
+            break;
+        case "Australia":
+            list = auAirports;
+            break;
+        case "Europe":
+            list = euAirports;
+            break;
+        default:
+            list = saAirports;
+    }
+
+    for (var i = 0; i < list.length; i++) {
+        flights += "To " + list[i] + ": " + currencySymbol
+            + getCost(from, list[i])
+            + "; " + getTime(from, list[i]) + "."
+    }
+    return flights;
 }
 
 // Air travel information
@@ -477,6 +512,12 @@ NA --> SA
 
 SA --> AU
 */
+
+afAirports = [ "JNB", "CAI", "CPT" ];
+asAirports = [ "PEK", "HND", "DXB" ];
+auAirports = [ "SYD", "MEL", "BNE" ];
+euAirports = [ "LHR", "CDG", "FRA" ];
+saAirports = [ "GRU", "BOG", "GIG" ];
 
 // Africa
 afFlights = [ "JNB-PEK:0678:18h50m", "JNB-HND:1481:19h40m", "JNB-DXB:0428:10h45m",

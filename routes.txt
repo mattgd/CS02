@@ -1,0 +1,21 @@
+Route 1: NA --> SA --> EU --> AF --> AS --> AU
+
+ATL ---> BOG
+1095, 04h56m
+
+BOG ---> FRA
+1721, 11h10m
+
+FRA ---> CAI
+0467, 04h05m
+
+CAI ---> DXB
+0334, 09h15m
+
+DXB ---> MEL
+1633, 13h20m
+
+$5250, 42h46m
+
+9 hours visiting
+$100/visit
