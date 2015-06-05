@@ -136,7 +136,7 @@ function process(input) {
                 if (isValidTransportation(s)) {
                     currentTransport = s;
                     atAirport = true;
-                    s = timelapse(10) + "airport. " + pay(15, "taxi driver");
+                    s = timelapse(10) + " you arrive at the airport. " + pay(15, "taxi driver");
                 } else {
                     s = "There are no flights available to " + nextLocation + ".";
                 }
@@ -416,7 +416,7 @@ function formatName(name) {
 
 function timelapse(minutes) {
     time += minutes;
-    return minutes + " minutes later, you arrive at the ";
+    return convertTime(minutes);
 }
 
 function pay(amount, recipient) {
@@ -517,6 +517,7 @@ function getFlights(from, to) {
 }
 
 function getCity(airport) {
+    airport = airport.toUpperCase();
     switch (airport) {
         case "JNB":
             airport = "Johannesburg";
@@ -572,16 +573,18 @@ function fly(airport) {
 
     for (var i = 0; i < availableDestinations.length; i++) {
         if (availableDestinations[i].substr(0, 3).toLowerCase() == airport) {
-            price = availableDestinations[i].substr(4, 5);
+            price = availableDestinations[i].substr(4, 4);
             time = availableDestinations[i].substr(9);
             break;
         }
     }
 
     selectingFlight = false;
+    // Add 60 minutes plus the time for the flight to the game time
     time = parseInt(time.substr(0, time.indexOf("h"))) * 60
-         + parseInt(time.substr(time.indexOf("h") + 1, time.indexOf("m")));
-    return pay(price) + " You arrive in " + getCity(airport) + " " + timelapse(time) + ".";
+         + parseInt(time.substr(time.indexOf("h") + 1, time.indexOf("m")) + 60);
+    return pay(price, "ticket agent") + getDelay("air")
+        + " You arrive in " + getCity(airport) + " " + timelapse(time) + ".";
 }
 
 function isAvailableFlight(airport) {
@@ -591,6 +594,58 @@ function isAvailableFlight(airport) {
         }
     }
     return false;
+}
+
+function convertTime(time) {
+    minutes = time;
+    hours = Math.floor(minutes / 60);
+    minutes = minutes % 60;
+    days = Math.floor(hours / 24);
+    hours = hours % 24;
+
+    if (hours < 1) {
+        time = minutes + " minutes";
+    } else {
+        if (days < 1) {
+            time = hours + " hours and " + minutes + " minutes";
+        } else {
+            time = days + " days, " + hours + " hours, and " + minutes + " minutes";
+        }
+    }
+
+    return time;
+}
+
+function getDelay(type) {
+    var delay = getRandom(0, 3);
+
+    if (delay > 1) {
+        delay = getRandom(0, 3);
+
+        switch (delay) {
+            case 1:
+                delay = "180";
+                break;
+            case 2:
+                delay = "300";
+                break;
+            case 3:
+                delay = "420";
+                break;
+            default:
+                delay = "60";
+        }
+
+        if (type == "air") {
+            delay = " There was a " + timelapse(delay) + " flight delay due to the weather.";
+        } else if (type == "sea") {
+            delay = " There was a " + timelapse(delay) + " sailing delay due to the weather.";
+        } else {
+            delay = " There was a " + timelapse(delay) + " driving delay due to the traffic.";
+        }
+        return delay;
+    }
+    return "";
 }
 // Air travel information
 // Variable name is departure/arrival airport
