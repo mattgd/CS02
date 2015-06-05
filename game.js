@@ -14,6 +14,8 @@ var atAirport = false;
 var atPort = false;
 var atCarRental = false;
 var currencySymbol = "$";
+var selectingFlight = false;
+var availableDestinations = new Array(3);
 
 // Generate a random index for North America starting location
 var startingLocation = getRandom(0, 2);
@@ -58,8 +60,8 @@ $(document).ready(function() {
     } else if (startingLocation == 2) {
         airportCode = "ORD";
     }
-    startingLocation = naCities[startingLocation];
 
+    startingLocation = naCities[startingLocation];
 });
 
 $(document).keypress(function(e) {
@@ -160,15 +162,32 @@ function process(input) {
             case "check in":
                 switch (currentTransport) {
                     case "plane":
-                        s = "Hello! Where will you be heading today?";
+                        selectingFlight = true;
+                        s = "Welcome! Where will you be heading today?";
                         break;
                     default:
-                        s = "There doesn't seem to be a check in desk.";
+                        s = "There doesn't seem to be a check in desk here.";
                 }
-                if (currentTransport == "plane" || currentTransport == "boat" || currentTransport == "car") {
-
-                } else {
-
+                break;
+            case "jnb":
+            case "cai":
+            case "cpt":
+            case "pek":
+            case "hnd":
+            case "dxb":
+            case "syd":
+            case "mel":
+            case "bne":
+            case "lhr":
+            case "cdg":
+            case "fra":
+            case "gru":
+            case "bog":
+            case "gig":
+                if (selectingFlight) {
+                    if (isAvailableFlight(s)) {
+                        s = fly(s);
+                    }
                 }
                 break;
             default:
@@ -434,8 +453,8 @@ function getCost(from, to) {
 
 function searchForCost(list, identifiers) {
     for (var i = 0; i < list.length; i++) {
-        if (list[i].substr(0, 6) == identifiers[0] || list[i].substr(0, 6) == identifiers[1]) {
-            return parseInt(list[i].substr(8, 4));
+        if (list[i].substr(0, 7) == identifiers[0] || list[i].substr(0, 7) == identifiers[1]) {
+            return parseInt(list[i].substr(8, 5));
         }
     }
     return 0;
@@ -455,14 +474,16 @@ function getTime(from, to) {
 
 function searchForTime(list, identifiers) {
     for (var i = 0; i < list.length; i++) {
-        if (list[i].substr(0, 6) == identifiers[0] || list[i].substr(0, 6) == identifiers[1]) {
-            return list[i].substr(13, 5);
+        if (list[i].substr(0, 7) == identifiers[0] || list[i].substr(0, 7) == identifiers[1]) {
+            return list[i].substr(13, 6);
         }
     }
     return 0;
 }
 
 function getFlights(from, to) {
+    var flightCount = 0;
+    var cost, time;
     var flights = "";
     var list = afAirports;
     switch (to) {
@@ -482,13 +503,95 @@ function getFlights(from, to) {
     }
 
     for (var i = 0; i < list.length; i++) {
-        flights += "To " + list[i] + ": " + currencySymbol
-            + getCost(from, list[i])
-            + "; " + getTime(from, list[i]) + "."
+        cost = getCost(from, list[i]);
+        time = getTime(from, list[i]);
+
+        flights += "To " + getCity(list[i]) + " (" + list[i] + "): "
+            + currencySymbol + cost + " (" + time + ")\n";
+
+        // Add the destination to the available destinations
+        availableDestinations[flightCount] = list[i] + ":" + cost + ":" + time;
+        flightCount++;
     }
     return flights;
 }
 
+function getCity(airport) {
+    switch (airport) {
+        case "JNB":
+            airport = "Johannesburg";
+            break;
+        case "CAI":
+            airport = "Cairo";
+            break;
+        case "CPT":
+            airport = "Cape Town";
+            break;
+        case "PEK":
+            airport = "Beijing";
+            break;
+        case "HND":
+            airport = "Tokyo";
+            break;
+        case "DXB":
+            airport = "Dubai";
+            break;
+        case "SYD":
+            airport = "Sydney";
+            break;
+        case "MEL":
+            airport = "Melbourne";
+            break;
+        case "BNE":
+            airport = "Brisbane";
+            break;
+        case "LHR":
+            airport = "London";
+            break;
+        case "CDG":
+            airport = "Paris";
+            break;
+        case "FRA":
+            airport = "Frankfurt";
+            break;
+        case "GRU":
+            airport = "Sao Paulo";
+            break;
+        case "BOG":
+            airport = "Bogota";
+            break;
+        case "GIG":
+            airport = "Rio de Janeiro";
+            break;
+    }
+    return airport;
+}
+
+function fly(airport) {
+    var price, time;
+
+    for (var i = 0; i < availableDestinations.length; i++) {
+        if (availableDestinations[i].substr(0, 3).toLowerCase() == airport) {
+            price = availableDestinations[i].substr(4, 5);
+            time = availableDestinations[i].substr(9);
+            break;
+        }
+    }
+
+    selectingFlight = false;
+    time = parseInt(time.substr(0, time.indexOf("h"))) * 60
+         + parseInt(time.substr(time.indexOf("h") + 1, time.indexOf("m")));
+    return pay(price) + " You arrive in " + getCity(airport) + " " + timelapse(time) + ".";
+}
+
+function isAvailableFlight(airport) {
+    for (var i = 0; i < availableDestinations.length; i++) {
+        if (availableDestinations[i].substr(0, 3).toLowerCase() == airport) {
+            return true;
+        }
+    }
+    return false;
+}
 // Air travel information
 // Variable name is departure/arrival airport
 
