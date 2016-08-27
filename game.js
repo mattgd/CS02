@@ -136,7 +136,7 @@ function process(input) {
                 if (isValidTransportation(s)) {
                     currentTransport = s;
                     atAirport = true;
-                    s = timelapse(10) + " you arrive at the airport. " + pay(15, "taxi driver");
+                    s = timelapse(10) + " later you arrive at the airport. " + pay(15, "taxi driver");
                 } else {
                     s = "There are no flights available to " + nextLocation + ".";
                 }
@@ -584,7 +584,7 @@ function fly(airport) {
     time = parseInt(time.substr(0, time.indexOf("h"))) * 60
          + parseInt(time.substr(time.indexOf("h") + 1, time.indexOf("m")) + 60);
     return pay(price, "ticket agent") + getDelay("air")
-        + " You arrive in " + getCity(airport) + " " + timelapse(time) + ".";
+        + " You arrive in " + getCity(airport) + " in " + timelapse(time) + ".";
 }
 
 function isAvailableFlight(airport) {
