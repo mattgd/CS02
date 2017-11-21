@@ -3,6 +3,8 @@ var title = "Seven Day Tour";
 var gameStarted = false;
 var money = 7000;
 
+var gameState;
+
 // I/O
 var balance, textarea, textIn, textOut;
 
@@ -44,13 +46,44 @@ var timer;
     3 - not moving
 */
 
+/**
+ * All of the possible game states.
+ */
+var gameStates = [
+    new GameState(0, "start"),
+    new GameState(1, "pause"),
+    new GameState(2, "end"),
+    new GameState(3, "taxi"),
+    new GameState(4, "airport"),
+    new GameState(5, "port"),
+    new GameState(6, "driving")
+]
+
+/**
+ * Returns the current game state.
+ */
+var getGameState = function() {
+    return gameState;
+}
+
+var newGame = function() {
+    gameState = new GameState(0, "start");
+}
+
+/*
+ * Appends output to the text area.
+*/
+var prompt = function(msg) {
+    textOut.val(textOut.val() + msg + "\n\n");
+}
+
 // Set the variables
 $(document).ready(function() {
     balance = $('#balance');
     balance.text("Money: " + currencySymbol + money);
     textIn = $('#input');
     textOut = $('#output');
-    textOut.val("Are you ready to begin? Type 'yes' or 'no' in the text box below.\n\n");
+    prompt("Are you ready to begin? Type 'yes' or 'no' in the text box below.");
     textarea = document.getElementById("output");
     timer = $('#timer');
 
@@ -75,11 +108,11 @@ function go() {
     var input = textIn.val(); // Read the input string
 
     if (input == "") {
-        textOut.val(textOut.val() + "You don't seem to want to do anything." + "\n\n"); // Add output to the textarea
+        prompt("You don't seem to want to do anything.");
     } else {
         textIn.val(""); // Reset textIn textbox
         var output = process(input); // Set output to the processed input
-        textOut.val(textOut.val() + ">> " + input + "\n" + output + "\n\n"); // Add output to the textarea
+        prompt(">> " + input + "\n" + output);
     }
 
     textarea.scrollTop = textarea.scrollHeight; // Keep scroll bar at bottom
@@ -208,10 +241,20 @@ function process(input) {
     return s;
 }
 
-// Reset the game
+/**
+ * Returns an array of all
+ * of the command options.
+ */
+function getCommandOptions() {
+
+}
+
+/**
+ * Reset's the game to its default state.
+ */ 
 function reset() {
     money = 7000;
-    textOut.val("");
+    prompt("");
 
     textarea.scrollTop = 0; // Reset the textarea scroll
 }
@@ -364,7 +407,6 @@ function getTransportation(type) {
     type = convertTransportationType(type);
 
     if (playerLocation == "Africa") {
-
         if (type == 2) {
             s = "Sorry, you cannot drive to "
         } else if (type == 0) {
@@ -414,24 +456,26 @@ function formatName(name) {
     return name;
 }
 
-function timelapse(minutes) {
+var timelapse = function(minutes) {
     time += minutes;
     return convertTime(minutes);
 }
 
-function pay(amount, recipient) {
+var pay = function(amount, recipient) {
     money -= amount;
     balance.text("Money: " + currencySymbol + money);
     return "You pay the " + recipient + " " + currencySymbol + amount + ".";
 }
 
-function getDay() {
+var getDay = function() {
     var hours = Math.floor(timer / 60);
     var days = Math.floor(hours / 24);
     hours = Math.floor(days % 24);
+
     if (hours >= 1) {
         day++;
     }
+
     return day;
 }
 
@@ -448,6 +492,7 @@ function getCost(from, to) {
         price = searchForCost(lists[i], identifiers);
         if (price != 0) break; // Stop once it finds a valid price
     }
+
     return price;
 }
 
@@ -671,58 +716,6 @@ NA --> SA
 SA --> AU
 */
 
-afAirports = [ "JNB", "CAI", "CPT" ];
-asAirports = [ "PEK", "HND", "DXB" ];
-auAirports = [ "SYD", "MEL", "BNE" ];
-euAirports = [ "LHR", "CDG", "FRA" ];
-saAirports = [ "GRU", "BOG", "GIG" ];
-
-// Africa
-afFlights = [ "JNB-PEK:0678:18h50m", "JNB-HND:1481:19h40m", "JNB-DXB:0428:10h45m",
-              "JNB-SYD:0667:11h50m", "JNB-MEL:0673:15h25m", "JNB-BNE:0675:15h25m",
-              "JNB-LHR:1278;10h45m", "JNB-CDG:1071:10h30m", "JNB-FRA:0779:10h40m",
-              "JNB-GRU:1196:08h40m", "JNB-BOG:2738:27h10m", "JNB-GIG:1332:12h31m",
-              "CAI-PEK:0628:13h20m", "CAI-HND:1088:26h05m", "CAI-DXB:0334:09h15m",
-              "CAI-SYD:0761:19h00m", "CAI-MEL:0701:18h25m", "CAI-BNE:0756:20h20m",
-              "CAI-LHR:0729:04h50m", "CAI-CDG:0563:04h20m", "CAI-FRA:0467:04h05m",
-              "CAI-GRU:2279:19h25m", "CAI-BOG:2470:17h30m", "CAI-GIG:1532:17h40m",
-              "CPT-PEK:0760:22h05m", "CPT-HND:1518:23h25m", "CPT-DXB:0899:09h35m",
-              "CPT-LHR:1629:11h25m", "CPT-CDG:0802:26h40m", "CPT-FRA:0885:14h35m",
-              "CPT-BOG:1936:33h45m" ];
-// Asia
-asFlights = [ "PEK-SYD:1189:20h10m", "PEK-MEL:1361:15h50m", "PEK-BNE:1240:21h10m",
-              "PEK-LHR:0978:10h00m", "PEK-CDG:0960:10h05m", "PEK-FRA:0896:09h15m",
-              "PEK-GRU:1263:23h45m", "PEK-BOG:1420:27h28m", "PEK-GIG:1271:24h24m",
-              "HND-SYD:0975:21h20m", "HND-MEL:1466:19h15m", "HND-BNE:0784:24h15m",
-              "HND-LHR:0956:11h40m", "HND-CDG:0768:11h55m", "HND-FRA:1124:11h25m",
-              "HND-GRU:1705:27h05m", "HND-BOG:1573:25h20m", "HND-GIG:1646:28h45m",
-              "DXB-SYD:1829:13h55m", "DXB-MEL:1633:13h20m", "DXB-BNE:1916:13h45m",
-              "DXB-LHR:0538:07h00m", "DXB-CDG:1124:11h25m", "DXB-FRA:0411:06h25m",
-              "DXB-GRU:2385:21h20m", "DXB-BOG:1644:24h00m", "DXB-GIG:1128:22h36m" ];
-// Europe
-euFlights = [ "LHR-SYD:1201:22h50m", "LHR-MEL:1084:22h50m", "LHR-BNE:1224:26h20m",
-              "LHR-GRU:1548:14h35m", "LHR-BOG:1243:15h50m", "LHR-GIG:1549:14h00m",
-              "CDG-SYD:1448:23h05m", "CDG-MEL:1315:22h30m", "CDG-BNE:1212:23h00m",
-              "CDG-GRU:1573:11h10m", "CDG-BOG:0949:20h00m", "CDG-GIG:1574:10h50m",
-              "FRA-SYD:1145:22h40m", "FRA-MEL:1229:21h35m", "FRA-BNE:1241:27h40m",
-              "FRA-GRU:1702:13h50m", "FRA-BOG:1721:11h10m", "FRA-GIG: 1554:13h40m" ];
-// North America
-naFlights = [ "ATL-JNB:2182:15h31m", "ATL-CAI:1466:16h05m", "ATL-CPT:2220:19h36m",
-              "ATL-PEK:1543:17h55m", "ATL-HND:1674:23h25m", "ATL-DXB:2545:14h35m",
-              "ATL-LHR:2223:08h10m", "ATL-CDG:2168:08h17m", "ATL-FRA:1596:09h10m",
-              "ATL-GRU:0790:09h41m", "ATL-BOG:1095:04h56m", "ATL-GIG:2015:09h35m",
-              "LAX-JNB:1600:25h45m", "LAX-CAI:1504:17h30m", "LAX-CPT:1633:29h30m",
-              "LAX-PEK:1876:12h40m", "LAX-HND:1955:11h50m", "LAX-DXB:2990:15h50m",
-              "LAX-LHR:1600:10h35m", "LAX-CDG:2751:10h50m", "LAX-FRA:2053:11h00m",
-              "LAX-GRU:1171:12h05m", "LAX-BOG:0522:15h24m", "LAX-GIG:1009:15h30m",
-              "ORD-JNB:1176:32h10m", "ORD-CAI:1404:14h04m", "ORD-CPT:1372:35h55m",
-              "ORD-PEK:1360:13h30m", "ORD-HND:1655:19h25m", "ORD-DXB:2694:13h40m",
-              "ORD-LHR:1306:07h55m", "ORD-CDG:2003:08h20m", "ORD-FRA:1883:08h30m",
-              "ORD-GRU:0857:10h30m", "ORD-BOG:0442:07h57m", "ORD-GIG:1194:12h46m" ];
-// South America
-saFlights = [ "GRU-SYD:1337:26h35m", "GRU-MEL:2673:22h45m", "GRU-BNE:1541:30h45m",
-              "BOG-SYD:1371:32h10m", "BOG-MEL:1646:31h45m", "BOG-BNE:1531:32h40m",
-              "GIG-SYD:1338:27h35m", "GIG-MEL:1541:32h54m", "GIG-BNE:1549:33h24m" ];
 
 /*Africa: JNB (Johannesburg, 0), CAI (Cairo, 1), CPT (Cape Town, 2)
 Asia: PEK (Beijing, 3), HND (Tokyo, 4), DXB (Dubai, 5)
