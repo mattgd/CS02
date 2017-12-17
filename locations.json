@@ -1,0 +1,158 @@
+{
+    "Africa": {
+        "Johannesburg": {
+            "airports": {
+                "JNB": {
+                    "lat": -26.136307,
+                    "lon": 28.240803
+                }
+            }
+        },
+        "Cairo": {
+            "airports": {
+                "CAI": {
+                    "lat": 30.112378,
+                    "lon": 31.400019
+                }
+            }
+        },
+        "Cape Town": {
+            "airports": {
+                "CPT": {
+                    "lat": -33.971418,
+                    "lon": 18.601881
+                }
+            }
+        }
+    },
+    "Asia": {
+        "Beijing": {
+            "airports": {
+                "PEK": {
+                    "lat": 40.079964,
+                    "lon": 116.603112
+                }
+            }
+        },
+        "Dubai": {
+            "airports": {
+                "DXB": {
+                    "lat": 25.253077,
+                    "lon": 55.365684
+                }
+            }
+        },
+        "Tokyo": {
+            "airports": {
+                "HND": {
+                    "lat": 35.549734,
+                    "lon": 139.780150
+                }
+            }
+        }
+    },
+    "Europe": {
+        "Frankfurt": {
+            "airports": {
+                "FRA": {
+                    "lat": 50.037953,
+                    "lon": 8.562205
+                }
+            }
+        },
+        "London": {
+            "airports": {
+                "LHR": {
+                    "lat": 51.470049,
+                    "lon": -0.454553
+                }
+            }
+        },
+        "Paris": {
+            "airports": {
+                "CDG": {
+                    "lat": 49.009754,
+                    "lon": 2.548010
+                }
+            }
+        }
+    },
+    "North America": {
+        "Atlanta": {
+            "airports": {
+                "ATL": {
+                    "lat": 33.640826,
+                    "lon": -84.427614
+                }
+            }
+        },
+        "Chicago": {
+            "airports": {
+                "ORD": {
+                    "lat": 41.974234,
+                    "lon": -87.907268
+                }
+            }
+        },
+        "Los Angeles": {
+            "airports": {
+                "LAX": {
+                    "lat": 33.941500,
+                    "lon": -118.408401
+                }
+            }
+        }
+    },
+    "Oceania": {
+        "Brisbane": {
+            "airports": {
+                "BNE": {
+                    "lat": -27.394138,
+                    "lon": 153.121680
+                }
+            }
+        },
+        "Melbourne": {
+            "airports": {
+                "MEL": {
+                    "lat": -37.668907,
+                    "lon": 144.840516
+                }
+            }
+        },
+        "Sydney": {
+            "airports": {
+                "SYD": {
+                    "lat": -33.939985,
+                    "lon": 151.175448
+                }
+            }
+        }
+    },
+    "South America": {
+        "Bogotá": {
+            "airports": {
+                "BOG": {
+                    "lat": 4.701443,
+                    "lon": -74.144900
+                }
+            }
+        },
+        "Rio de Janeiro": {
+            "airports": {
+                "GIG": {
+                    "lat": -22.813311,
+                    "lon": -43.249638
+                }
+            }
+        },
+        "São Paulo": {
+            "airports": {
+                "GRU": {
+                    "lat": -23.434543,
+                    "lon": -46.477997
+                }
+            }
+        }
+    }
+}
